@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:puja_ltd/config/app_color_config.dart';
-import 'package:puja_ltd/features/bottom_nav_bar/bottom_nav_bar_widget.dart';
+import 'package:puja_ltd/features/auth/login_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.blue,
           scaffoldBackgroundColor: scaffoldBackground),
-      home: const BottomNavigationBarWidget(),
+      home: LoginScreen(),
+      builder: EasyLoading.init(),
     );
   }
 }

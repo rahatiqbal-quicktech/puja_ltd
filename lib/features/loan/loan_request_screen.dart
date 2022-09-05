@@ -4,9 +4,15 @@ import 'package:puja_ltd/common/widgets/round_button_widget.dart';
 import 'package:puja_ltd/common/widgets/theme_color_textformfield.dart';
 import 'package:puja_ltd/common/widgets/vertical_space.dart';
 import 'package:puja_ltd/config/app_color_config.dart';
+import 'package:puja_ltd/features/loan/service/loan_service.dart';
 
 class LoanRequestScreen extends StatelessWidget {
-  const LoanRequestScreen({Key? key}) : super(key: key);
+  LoanRequestScreen({Key? key}) : super(key: key);
+  final TextEditingController amount = TextEditingController();
+  final TextEditingController meth = TextEditingController();
+  final TextEditingController descr = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -18,29 +24,46 @@ class LoanRequestScreen extends StatelessWidget {
           context: context),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: ListView(
-          children: [
-            const VerticalSpace(height: 10),
-            const Center(
-                child: Text(
-              "Send a loan request",
-              textAlign: TextAlign.center,
-            )),
-            const VerticalSpace(height: 20),
-            const ThemeColorTextFormField(
-                icondata: Icons.money, hint: "Amount"),
-            const VerticalSpace(height: 10),
-            const ThemeColorTextFormField(
-                icondata: Icons.credit_card, hint: "Method"),
-            const VerticalSpace(height: 10),
-            const ThemeColorTextFormField(
-                icondata: Icons.pages, hint: "Description"),
-            const VerticalSpace(height: 10),
-            RoundButtonWidget(
-                labelText: "Send",
-                backgroundColor: buttonColor,
-                function: () {}),
-          ],
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            children: [
+              const VerticalSpace(height: 10),
+              const Center(
+                  child: Text(
+                "Send a loan request",
+                textAlign: TextAlign.center,
+              )),
+              const VerticalSpace(height: 20),
+              ThemeColorTextFormField(
+                  textEditingController: amount,
+                  textInputType: TextInputType.number,
+                  icondata: Icons.money,
+                  hint: "Amount"),
+              const VerticalSpace(height: 10),
+              ThemeColorTextFormField(
+                  textEditingController: meth,
+                  icondata: Icons.credit_card,
+                  hint: "Method"),
+              const VerticalSpace(height: 10),
+              ThemeColorTextFormField(
+                  textEditingController: descr,
+                  icondata: Icons.pages,
+                  hint: "Description"),
+              const VerticalSpace(height: 10),
+              RoundButtonWidget(
+                  labelText: "Send",
+                  backgroundColor: buttonColor,
+                  function: () {
+                    if (_formKey.currentState!.validate()) {
+                      LoanService().sendLoanRequest(
+                          amount: amount.text,
+                          meth: meth.text,
+                          descr: descr.text);
+                    }
+                  }),
+            ],
+          ),
         ),
       ),
     );

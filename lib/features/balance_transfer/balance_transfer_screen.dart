@@ -4,9 +4,14 @@ import 'package:puja_ltd/common/widgets/round_button_widget.dart';
 import 'package:puja_ltd/common/widgets/theme_color_textformfield.dart';
 import 'package:puja_ltd/common/widgets/vertical_space.dart';
 import 'package:puja_ltd/config/app_color_config.dart';
+import 'package:puja_ltd/features/balance_transfer/service/balance_transfer_service.dart';
 
 class BalanceTransferScreen extends StatelessWidget {
-  const BalanceTransferScreen({Key? key}) : super(key: key);
+  BalanceTransferScreen({Key? key}) : super(key: key);
+  final TextEditingController amount = TextEditingController();
+  final TextEditingController receiverMember = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -18,29 +23,41 @@ class BalanceTransferScreen extends StatelessWidget {
           context: context),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: ListView(
-          children: [
-            const VerticalSpace(height: 10),
-            const Center(
-                child: Text(
-              "Send a product loan request",
-              textAlign: TextAlign.center,
-            )),
-            const VerticalSpace(height: 20),
-            const ThemeColorTextFormField(
-                icondata: Icons.money, hint: "Amount"),
-            const VerticalSpace(height: 10),
-            const ThemeColorTextFormField(
-                icondata: Icons.credit_card, hint: "Method"),
-            const VerticalSpace(height: 10),
-            const ThemeColorTextFormField(
-                icondata: Icons.pages, hint: "Description"),
-            const VerticalSpace(height: 10),
-            RoundButtonWidget(
-                labelText: "Send",
-                backgroundColor: buttonColor,
-                function: () {}),
-          ],
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            children: [
+              const VerticalSpace(height: 10),
+              const Center(
+                  child: Text(
+                "Send a Balance Transfer request",
+                textAlign: TextAlign.center,
+              )),
+              const VerticalSpace(height: 20),
+              ThemeColorTextFormField(
+                  textEditingController: receiverMember,
+                  textInputType: TextInputType.number,
+                  icondata: Icons.money,
+                  hint: "Reciever Member"),
+              const VerticalSpace(height: 10),
+              ThemeColorTextFormField(
+                  textEditingController: amount,
+                  textInputType: TextInputType.number,
+                  icondata: Icons.pages,
+                  hint: "Amount"),
+              const VerticalSpace(height: 10),
+              RoundButtonWidget(
+                  labelText: "Send",
+                  backgroundColor: buttonColor,
+                  function: () {
+                    if (_formKey.currentState!.validate()) {
+                      BalanceTransferService().sendBalanceTransferRequest(
+                          amount: amount.text,
+                          receiverMember: receiverMember.text);
+                    }
+                  }),
+            ],
+          ),
         ),
       ),
     );

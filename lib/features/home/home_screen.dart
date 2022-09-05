@@ -1,11 +1,19 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:puja_ltd/common/functions/get_screen_height_width.dart';
+import 'package:puja_ltd/common/get_storage_keys.dart';
 import 'package:puja_ltd/common/widgets/round_button_widget.dart';
 import 'package:puja_ltd/common/widgets/vertical_space.dart';
 import 'package:puja_ltd/config/app_color_config.dart';
+import 'package:puja_ltd/features/balance_transfer/balance_transfer_screen.dart';
+import 'package:puja_ltd/features/deposit/deposit_request_screen.dart';
+import 'package:puja_ltd/features/dps/dps_request_screen.dart';
 import 'package:puja_ltd/features/loan/loan_request_screen.dart';
 import 'package:puja_ltd/features/mobile_recharge/mobile_recharge_screen.dart';
+import 'package:puja_ltd/features/product_loan/product_loan_screen.dart';
 import 'package:puja_ltd/features/saving/screens/saving_request_screen.dart';
 
 import 'widgets/home_screen_button.dart';
@@ -56,7 +64,10 @@ class HomeScreen extends StatelessWidget {
                         icon: Icons.phone_iphone,
                         color: buttonColor,
                         function: () {
-                          Get.to(() => const MobileRechargeScreen());
+                          // var box = GetStorage();
+                          // log(box.read(GetStorageKeys().tokenKey));
+
+                          Get.to(() => MobileRechargeScreen());
                         }),
                     HomeScreenButton(
                         name: "Recharge History",
@@ -64,7 +75,7 @@ class HomeScreen extends StatelessWidget {
                         color: Colors.blueAccent),
                     HomeScreenButton(
                         function: () {
-                          Get.to(() => const SavingRequestScreen());
+                          Get.to(() => SavingRequestScreen());
                         },
                         name: "Saving Request",
                         icon: Icons.data_saver_on,
@@ -81,7 +92,7 @@ class HomeScreen extends StatelessWidget {
                         color: Colors.orange),
                     HomeScreenButton(
                         function: () {
-                          Get.to(() => const LoanRequestScreen());
+                          Get.to(() => LoanRequestScreen());
                         },
                         name: "Loan Request",
                         icon: Icons.credit_score,
@@ -97,6 +108,9 @@ class HomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     HomeScreenButton(
+                        function: () {
+                          Get.to(() => DpsRequestScreen());
+                        },
                         name: "Dps Request",
                         icon: Icons.add_business,
                         color: Colors.indigo),
@@ -105,6 +119,9 @@ class HomeScreen extends StatelessWidget {
                         icon: Icons.toll,
                         color: Colors.black45),
                     HomeScreenButton(
+                        function: () {
+                          Get.to(() => DepositRequestScreen());
+                        },
                         name: "Deposit Request",
                         icon: Icons.credit_score_outlined,
                         color: Colors.green),
@@ -119,6 +136,9 @@ class HomeScreen extends StatelessWidget {
                         icon: Icons.attach_money,
                         color: Colors.lime),
                     HomeScreenButton(
+                        function: () {
+                          Get.to(() => ProductLoanRequestScreen());
+                        },
                         name: "Product Loan Request",
                         icon: Icons.ad_units_sharp,
                         color: const Color.fromARGB(255, 231, 142, 9)),
@@ -133,6 +153,9 @@ class HomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     HomeScreenButton(
+                        function: () {
+                          Get.to(() => BalanceTransferScreen());
+                        },
                         name: "Balance Transfer",
                         icon: Icons.add,
                         color: const Color.fromARGB(255, 109, 96, 230)),

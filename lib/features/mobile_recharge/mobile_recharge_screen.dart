@@ -4,9 +4,12 @@ import 'package:puja_ltd/common/widgets/round_button_widget.dart';
 import 'package:puja_ltd/common/widgets/theme_color_textformfield.dart';
 import 'package:puja_ltd/common/widgets/vertical_space.dart';
 import 'package:puja_ltd/config/app_color_config.dart';
+import 'package:puja_ltd/features/mobile_recharge/service/mobile_recharge_service.dart';
 
 class MobileRechargeScreen extends StatelessWidget {
-  const MobileRechargeScreen({Key? key}) : super(key: key);
+  MobileRechargeScreen({Key? key}) : super(key: key);
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController rechargeAmount = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -18,26 +21,35 @@ class MobileRechargeScreen extends StatelessWidget {
           context: context),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            const VerticalSpace(height: 10),
-            const Center(
-                child: Text(
-              "Write your mobile number below for \nmobile recharge.",
-              textAlign: TextAlign.center,
-            )),
-            const VerticalSpace(height: 20),
-            const ThemeColorTextFormField(
-                icondata: Icons.phone_iphone, hint: "Amount"),
-            const VerticalSpace(height: 10),
-            SizedBox(
-              width: 200,
-              child: RoundButtonWidget(
-                  labelText: "Recharge Now",
-                  backgroundColor: buttonColor,
-                  function: () {}),
-            ),
-          ],
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              const VerticalSpace(height: 10),
+              const Center(
+                  child: Text(
+                "Write your mobile number below for \nmobile recharge.",
+                textAlign: TextAlign.center,
+              )),
+              const VerticalSpace(height: 20),
+              ThemeColorTextFormField(
+                  textEditingController: rechargeAmount,
+                  textInputType: TextInputType.number,
+                  icondata: Icons.phone_iphone,
+                  hint: "Amount"),
+              const VerticalSpace(height: 10),
+              SizedBox(
+                width: 200,
+                child: RoundButtonWidget(
+                    labelText: "Recharge Now",
+                    backgroundColor: buttonColor,
+                    function: () {
+                      MobileRechargeService()
+                          .sendMobileRecharge(amount: rechargeAmount.text);
+                    }),
+              ),
+            ],
+          ),
         ),
       ),
     );

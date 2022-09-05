@@ -4,9 +4,15 @@ import 'package:puja_ltd/common/widgets/round_button_widget.dart';
 import 'package:puja_ltd/common/widgets/theme_color_textformfield.dart';
 import 'package:puja_ltd/common/widgets/vertical_space.dart';
 import 'package:puja_ltd/config/app_color_config.dart';
+import 'package:puja_ltd/features/saving/service/saving_service.dart';
 
 class SavingRequestScreen extends StatelessWidget {
-  const SavingRequestScreen({Key? key}) : super(key: key);
+  SavingRequestScreen({Key? key}) : super(key: key);
+  final TextEditingController amount = TextEditingController();
+  final TextEditingController meth = TextEditingController();
+  final TextEditingController descr = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -18,23 +24,46 @@ class SavingRequestScreen extends StatelessWidget {
           context: context),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: ListView(
-          children: [
-            const VerticalSpace(height: 10),
-            const ThemeColorTextFormField(
-                icondata: Icons.money, hint: "Amount"),
-            const VerticalSpace(height: 10),
-            const ThemeColorTextFormField(
-                icondata: Icons.credit_score_outlined, hint: "Method"),
-            const VerticalSpace(height: 10),
-            const ThemeColorTextFormField(
-                icondata: Icons.data_saver_on, hint: "Description"),
-            const VerticalSpace(height: 10),
-            RoundButtonWidget(
-                labelText: "Send",
-                backgroundColor: buttonColor,
-                function: () {}),
-          ],
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            children: [
+              const VerticalSpace(height: 10),
+              const Center(
+                  child: Text(
+                "Send a Saving request",
+                textAlign: TextAlign.center,
+              )),
+              const VerticalSpace(height: 20),
+              ThemeColorTextFormField(
+                  textEditingController: amount,
+                  textInputType: TextInputType.number,
+                  icondata: Icons.money,
+                  hint: "Amount"),
+              const VerticalSpace(height: 10),
+              ThemeColorTextFormField(
+                  textEditingController: meth,
+                  icondata: Icons.credit_card,
+                  hint: "Method"),
+              const VerticalSpace(height: 10),
+              ThemeColorTextFormField(
+                  textEditingController: descr,
+                  icondata: Icons.pages,
+                  hint: "write here your sender number and trx id"),
+              const VerticalSpace(height: 10),
+              RoundButtonWidget(
+                  labelText: "Send",
+                  backgroundColor: buttonColor,
+                  function: () {
+                    if (_formKey.currentState!.validate()) {
+                      SavingService().sendSavingRequest(
+                          amount: amount.text,
+                          meth: meth.text,
+                          descr: descr.text);
+                    }
+                  }),
+            ],
+          ),
         ),
       ),
     );

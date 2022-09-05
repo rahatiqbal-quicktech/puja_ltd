@@ -12,6 +12,7 @@ class ThemeColorTextFormField extends StatelessWidget {
     this.password,
     this.hideText = false,
     this.maxLines = 1,
+    this.textInputType = TextInputType.text,
   }) : super(key: key);
 
   final IconData icondata;
@@ -22,6 +23,7 @@ class ThemeColorTextFormField extends StatelessWidget {
   final String? password;
   final bool hideText;
   final int maxLines;
+  final TextInputType textInputType;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,7 @@ class ThemeColorTextFormField extends StatelessWidget {
       controller: textEditingController,
       obscureText: hideText,
       maxLines: maxLines,
+      keyboardType: textInputType,
       decoration: InputDecoration(
         prefixIcon: Icon(
           icondata,
