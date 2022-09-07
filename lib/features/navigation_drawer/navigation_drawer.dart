@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:puja_ltd/common/get_storage_keys.dart';
 import 'package:puja_ltd/common/widgets/vertical_space.dart';
+import 'package:puja_ltd/features/auth/login_screen.dart';
 
 class SideNavigationDrawer extends StatelessWidget {
   const SideNavigationDrawer({Key? key}) : super(key: key);
@@ -41,6 +45,18 @@ class SideNavigationDrawer extends StatelessWidget {
                   onTap: () {},
                   leading: const Icon(Icons.account_balance),
                   title: const Text("Balance")),
+              ListTile(
+                  onTap: () {
+                    var box = GetStorage();
+                    box.remove(GetStorageKeys().tokenKey).then((value) {
+                      Get.offAll(() => LoginScreen());
+                    });
+                  },
+                  // leading: const Icon(Icons.account_balance),
+                  title: const Text(
+                    "Logout",
+                    style: TextStyle(color: Colors.red),
+                  )),
             ],
           ),
         ),

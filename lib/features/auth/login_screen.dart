@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:puja_ltd/common/functions/get_screen_height_width.dart';
-import 'package:puja_ltd/common/widgets/custom_app_bar.dart';
 import 'package:puja_ltd/common/widgets/round_button_widget.dart';
 import 'package:puja_ltd/common/widgets/theme_color_textformfield.dart';
 import 'package:puja_ltd/common/widgets/vertical_space.dart';
@@ -26,17 +25,18 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: getHeight(context) * 20,
-        title: const Text(
-          "Puja Ltd",
-          style: TextStyle(
-            color: Colors.black87,
-          ),
-        ),
-        backgroundColor: themeColor,
-        elevation: 0.1,
-      ),
+      backgroundColor: Colors.white,
+      // appBar: AppBar(
+      //   toolbarHeight: getHeight(context) * 20,
+      //   title: const Text(
+      //     "Puja Ltd",
+      //     style: TextStyle(
+      //       color: Colors.black87,
+      //     ),
+      //   ),
+      //   backgroundColor: themeColor,
+      //   elevation: 0.1,
+      // ),
       body: SafeArea(
           child: Form(
         key: _formKey,
@@ -45,17 +45,22 @@ class _LoginScreenState extends State<LoginScreen> {
           child: ListView(
             children: [
               VerticalSpace(height: getHeight(context) * 2),
-              const ListTile(
-                leading: Image(image: AssetImage('assets/images/app_logo.png')),
-                title: Text("Puja Ltd Account Login"),
-                subtitle:
-                    Text("Provide your account info to Log In with Puja Ltd"),
+              Image(
+                image: const AssetImage('assets/images/app_logo.png'),
+                height: getHeight(context) * 20,
               ),
+              // const ListTile(
+              //   leading: Image(image: AssetImage('assets/images/app_logo.png')),
+              //   title: Text("Puja Ltd Account Login"),
+              //   subtitle:
+              //       Text("Provide your account info to Log In with Puja Ltd"),
+              // ),
               VerticalSpace(height: getHeight(context) * 5),
               const Text("Mobile Number"),
               const VerticalSpace(height: 10),
               ThemeColorTextFormField(
                   textEditingController: contactController,
+                  textInputType: TextInputType.number,
                   icondata: Icons.phone,
                   hint: "012345"),
               VerticalSpace(height: getHeight(context) * 2),

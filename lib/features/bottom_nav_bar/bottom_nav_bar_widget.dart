@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:puja_ltd/common/screens/blank_screen.dart';
+import 'package:puja_ltd/features/history/history_screen.dart';
 import 'package:puja_ltd/features/home/home_screen.dart';
 import 'package:puja_ltd/features/navigation_drawer/navigation_drawer.dart';
+import 'package:puja_ltd/features/request/requests_screen.dart';
 
 class BottomNavigationBarWidget extends StatefulWidget {
   const BottomNavigationBarWidget({Key? key}) : super(key: key);
@@ -13,16 +15,15 @@ class BottomNavigationBarWidget extends StatefulWidget {
 
 class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
   List<Widget> screensList = <Widget>[
-    const HomeScreen(),
-    const BlankScreen(),
-    const BlankScreen(),
-    const BlankScreen(),
+    HomeScreen(),
+    HistoryScreen(),
+    const RequestScreen(),
   ];
   var _currentIndex = 0;
 
   final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
   void _onItemTapped(int index) {
-    index == 4
+    index == 3
         ? _drawerKey.currentState?.openDrawer()
         : setState(() {
             _currentIndex = index;
@@ -47,11 +48,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.wallet),
-            label: 'Wallet',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Notifications',
+            label: 'Requests',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.menu),

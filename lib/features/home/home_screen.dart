@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:puja_ltd/common/controllers/all_controllers.dart';
 import 'package:puja_ltd/common/functions/get_screen_height_width.dart';
-import 'package:puja_ltd/common/get_storage_keys.dart';
 import 'package:puja_ltd/common/widgets/round_button_widget.dart';
 import 'package:puja_ltd/common/widgets/vertical_space.dart';
 import 'package:puja_ltd/config/app_color_config.dart';
@@ -16,10 +13,10 @@ import 'package:puja_ltd/features/mobile_recharge/mobile_recharge_screen.dart';
 import 'package:puja_ltd/features/product_loan/product_loan_screen.dart';
 import 'package:puja_ltd/features/saving/screens/saving_request_screen.dart';
 
-import 'widgets/home_screen_button.dart';
+import '../../common/widgets/home_screen_button.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatelessWidget with AllControllers {
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +31,14 @@ class HomeScreen extends StatelessWidget {
             color: themeColor,
             child: Center(
               child: ListTile(
-                leading: const CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.white,
-                  backgroundImage: AssetImage('assets/images/app_logo.png'),
+                leading: const Image(
+                  image: AssetImage('assets/images/app_logo.png'),
                 ),
+                //  CircleAvatar(
+                //   radius: 30,
+                //   backgroundColor: Colors.white,
+                //   backgroundImage: AssetImage('assets/images/app_logo.png'),
+                // ),
                 title: const Text("Rosy Afsari"),
                 subtitle: const Text("01795523542"),
                 trailing: RoundButtonWidget(
@@ -70,6 +70,9 @@ class HomeScreen extends StatelessWidget {
                           Get.to(() => MobileRechargeScreen());
                         }),
                     HomeScreenButton(
+                        function: () {
+                          commonController.mobileRechargeHistory();
+                        },
                         name: "Recharge History",
                         icon: Icons.attach_money,
                         color: Colors.blueAccent),
@@ -87,6 +90,9 @@ class HomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     HomeScreenButton(
+                        function: () {
+                          commonController.savingRequestHistory();
+                        },
                         name: "Saving Request History",
                         icon: Icons.inventory,
                         color: Colors.orange),
@@ -98,6 +104,9 @@ class HomeScreen extends StatelessWidget {
                         icon: Icons.credit_score,
                         color: Colors.greenAccent),
                     HomeScreenButton(
+                        function: () {
+                          commonController.loanRequestHistory();
+                        },
                         name: "Loan Request History",
                         icon: Icons.credit_score_outlined,
                         color: Colors.teal),
@@ -115,6 +124,10 @@ class HomeScreen extends StatelessWidget {
                         icon: Icons.add_business,
                         color: Colors.indigo),
                     HomeScreenButton(
+                        function: () {
+                          // Get.to(() => const DpsRequestHistoryScreen());
+                          commonController.dpsHistory();
+                        },
                         name: "Dps Request History",
                         icon: Icons.toll,
                         color: Colors.black45),
@@ -132,6 +145,9 @@ class HomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     HomeScreenButton(
+                        function: () {
+                          commonController.depositRequestHistory();
+                        },
                         name: "Deposit Request History",
                         icon: Icons.attach_money,
                         color: Colors.lime),
@@ -143,6 +159,9 @@ class HomeScreen extends StatelessWidget {
                         icon: Icons.ad_units_sharp,
                         color: const Color.fromARGB(255, 231, 142, 9)),
                     HomeScreenButton(
+                        function: () {
+                          commonController.productLoanHistory();
+                        },
                         name: "Product Loan History",
                         icon: Icons.workspaces_outline,
                         color: Colors.green),
@@ -160,6 +179,9 @@ class HomeScreen extends StatelessWidget {
                         icon: Icons.add,
                         color: const Color.fromARGB(255, 109, 96, 230)),
                     HomeScreenButton(
+                        function: () {
+                          commonController.balanceTransferHistory();
+                        },
                         name: "Balance Transfer History",
                         icon: Icons.add_alert_outlined,
                         color: const Color.fromARGB(255, 167, 48, 68)),

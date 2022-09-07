@@ -31,7 +31,7 @@ class DepositRequestScreen extends StatelessWidget {
               const VerticalSpace(height: 10),
               const Center(
                   child: Text(
-                "Send a DPS request",
+                "Send a Deposit request",
                 textAlign: TextAlign.center,
               )),
               const VerticalSpace(height: 20),
