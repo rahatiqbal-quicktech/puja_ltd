@@ -34,7 +34,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _drawerKey,
-      drawer: const SideNavigationDrawer(),
+      drawer: SideNavigationDrawer(),
       body: screensList[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

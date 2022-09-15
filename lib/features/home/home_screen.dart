@@ -24,30 +24,32 @@ class HomeScreen extends StatelessWidget with AllControllers {
       body: SafeArea(
           child: ListView(
         children: [
-          Container(
-            // padding: const EdgeInsets.all(10),
-            height: getHeight(context) * 15,
-            width: double.infinity,
-            color: themeColor,
-            child: Center(
-              child: ListTile(
-                leading: const Image(
-                  image: AssetImage('assets/images/app_logo.png'),
+          Obx(() {
+            return Container(
+              // padding: const EdgeInsets.all(10),
+              height: getHeight(context) * 15,
+              width: double.infinity,
+              color: themeColor,
+              child: Center(
+                child: ListTile(
+                  leading: const Image(
+                    image: AssetImage('assets/images/app_logo.png'),
+                  ),
+                  //  CircleAvatar(
+                  //   radius: 30,
+                  //   backgroundColor: Colors.white,
+                  //   backgroundImage: AssetImage('assets/images/app_logo.png'),
+                  // ),
+                  title: Text(profileDetailsController.name.value),
+                  subtitle: Text(profileDetailsController.phone.value),
+                  trailing: RoundButtonWidget(
+                      labelText: "Balance",
+                      backgroundColor: buttonColor,
+                      function: () {}),
                 ),
-                //  CircleAvatar(
-                //   radius: 30,
-                //   backgroundColor: Colors.white,
-                //   backgroundImage: AssetImage('assets/images/app_logo.png'),
-                // ),
-                title: const Text("Rosy Afsari"),
-                subtitle: const Text("01795523542"),
-                trailing: RoundButtonWidget(
-                    labelText: "Balance",
-                    backgroundColor: buttonColor,
-                    function: () {}),
               ),
-            ),
-          ),
+            );
+          }),
           Container(
             // height: getHeight(context) * 20,
             padding: const EdgeInsets.all(10),

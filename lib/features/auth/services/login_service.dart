@@ -4,10 +4,11 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:puja_ltd/common/controllers/all_controllers.dart';
 import 'package:puja_ltd/common/get_storage_keys.dart';
 import 'package:puja_ltd/features/bottom_nav_bar/bottom_nav_bar_widget.dart';
 
-class LoginService {
+class LoginService with AllControllers {
   logIn({required String contact, required String password}) async {
     EasyLoading.show();
     var box = GetStorage();
@@ -24,6 +25,8 @@ class LoginService {
         EasyLoading.dismiss();
         Fluttertoast.showToast(msg: "You are logged in");
         // log(response.data.toString());
+        profileDetailsController.getData();
+
         Get.offAll(() => const BottomNavigationBarWidget());
       } else {
         EasyLoading.dismiss();

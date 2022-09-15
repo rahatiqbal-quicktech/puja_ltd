@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:puja_ltd/common/controllers/all_controllers.dart';
 import 'package:puja_ltd/common/get_storage_keys.dart';
 import 'package:puja_ltd/features/auth/login_screen.dart';
 import 'package:puja_ltd/features/bottom_nav_bar/bottom_nav_bar_widget.dart';
@@ -12,7 +13,7 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen> with AllControllers {
   late String userId;
 
   @override
@@ -27,6 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Get.off(() => LoginScreen());
       } else {
         // GetInitialData().getInitialData();
+        profileDetailsController.getData();
         Get.offAll(
           () => const BottomNavigationBarWidget(),
         );
